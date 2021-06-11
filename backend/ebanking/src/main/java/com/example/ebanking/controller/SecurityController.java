@@ -14,10 +14,12 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
+import com.example.ebanking.entity.Agent;
 import com.example.ebanking.entity.BankAccount;
 import com.example.ebanking.entity.Role;
 import com.example.ebanking.entity.Users;
 import com.example.ebanking.jwt.JwtTokenProvider;
+import com.example.ebanking.service.AgetService;
 import com.example.ebanking.service.BankAccountService;
 import com.example.ebanking.service.UserService;
 
@@ -29,6 +31,8 @@ public class SecurityController {
 	public BankAccountService bankAccountService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private AgetService agentService;
 	@Autowired
 	private JwtTokenProvider jwtTokenProvider;
 	@Autowired
@@ -98,4 +102,21 @@ public class SecurityController {
 		userService.deleteAccount(email);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
+	@PostMapping("/createAdmin")
+	public ResponseEntity<?> SaveAgent(@RequestBody Users theUser){
+		if(userService.findByEmail(theUser.getEmail()) != null) {
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
+		}
+		theUser.setRole(Role.ADMIN);
+		theUser.setStatus(1);
+		userService.save(theUser);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	@PostMapping("/createAgence")
+	public ResponseEntity<?> SaveAgence(@RequestBody Agent ajent){
+		agentService.save(ajent);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
 }

@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -64,5 +65,9 @@ public class Users {
 
 	@Transient
 	public String token;
+	
+	@ManyToOne
+	@JoinColumn()
+	Agent agent;
 	
 }

@@ -21,6 +21,9 @@ export class LoginComponent implements OnInit {
         if (this.loginService.currentUserValue.role === "ADMIN") {
             this.router.navigate(['/admin/dashboard']);
         }
+        else if (this.loginService.currentUserValue.role === "SUP_Admin") {
+            this.router.navigate(['/Sup_Admin/dashboard']);
+        }
         else {
             this.router.navigate(['/dashboard']);
         }
@@ -32,7 +35,10 @@ export class LoginComponent implements OnInit {
             if (this.loginService.currentUserValue.role === "ADMIN") {
                 this.router.navigate(['/admin/dashboard']);
             }
-            else {
+           else if(this.loginService.currentUserValue.role === "SUP_Admin")  {
+                this.router.navigate(['/Sup_Admin/dashboard']);
+            }
+            else  {
                 this.router.navigate(['/dashboard']);
             }
             this.hidden = true;

@@ -68,13 +68,7 @@ public class AdminController {
     }
 
     
-    @PutMapping("bankUser/update/{acountnuber}")
-    public void updatestatusAcount(@PathVariable BigInteger  acountnuber) {
-    	System.out.println("hqhqhqhh");
-    	Users user = userService.findByAccountNo(acountnuber);
-    	user.setStatus(2);
-    	userService.save(user);
-    }
+    
 
     
     @PostMapping("/balance/save")
